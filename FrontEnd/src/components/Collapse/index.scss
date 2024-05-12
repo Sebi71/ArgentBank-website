@@ -1,0 +1,82 @@
+.collapse-container {
+    display: flex;
+    flex-direction: column;
+    background-color: #00bc77;
+    color: #fff;
+    width: 98%;
+    margin: 0 auto 20px auto;
+    border-radius: 10px;
+
+    .collapse-first-line {
+        display: flex;
+        align-items: baseline;
+
+        .collapse-items {
+            display: flex;
+            gap: 15px;
+            width: 95%;
+            margin: 10px auto;
+            font-size: 0.8rem;
+        
+            @media (min-width: 720px) {
+                font-size: 1rem;
+            }
+
+            .date-description {
+                width: 50%;
+                display: flex;
+
+                @media (min-width: 720px) {
+                    width: 66%;
+                    gap: 65px;
+                }
+            }
+
+            .amount-balance {
+                display: flex;
+                gap: 17px;
+
+                @media (min-width: 720px) {
+                    gap: 60px;
+                }
+            }
+        }
+
+        .close {
+            transform: rotate(0deg);
+            padding: 0 10px 0 0;
+        }
+            
+        .open {
+            transform: rotate(180deg);
+            padding: 0 0 0 10px;
+        }
+    }
+
+    .table-content {
+        margin: 5px 4px 15px 0;
+        display: flex;
+        width: 55%;
+
+        @media (min-width: 720px) {
+           gap: 55px ;
+        }
+
+        .first-colone, .second-colone {
+            font-size: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            text-wrap: wrap;
+            align-items: start;
+            text-align: start;
+
+            @media (min-width: 720px) {
+                font-size: 1rem;;
+            }
+        }
+
+        .second-colone td {
+            font-weight: 700;
+        }
+    }
+}
