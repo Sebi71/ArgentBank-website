@@ -46,6 +46,9 @@ export default function Account({ titled, totalBalance, description }) {
               </tr>
           </table>
           <Collapse />
+          <Collapse />
+          <Collapse />
+          <Collapse />
         </section>
       )}
     </>

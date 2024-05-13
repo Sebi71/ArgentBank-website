@@ -1,0 +1,54 @@
+.title-edit {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.form-container {
+    background-color: #fff;
+    width: 80%;
+    margin: 0 auto 30px auto;
+    padding: 15px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 720px) {
+        width: 40%;
+    }
+
+    .input-line {
+        margin-bottom: 10px;
+
+        .input-info {
+            margin-left: 5px;
+            border-radius: 5px;
+            border-width: 1px;
+            padding: 5px;
+        }
+
+        .input-disable {
+            background-color: #a09a9a;
+            color: #000;
+            opacity: 60%;
+            outline: none;
+        }
+    }
+
+    .form-btn {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin-top: 10px;
+
+        .edit-btn {
+            color: #fff;
+            background-color: #00bc77;
+            border-radius: 5px;
+            border: 0;
+            width: 40%;
+            padding: 8px;
+            font-size: 1.1rem;
+        }
+    }
+}
