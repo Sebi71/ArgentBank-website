@@ -1,6 +1,8 @@
 import Account from "../../components/Account";
 import EditUser from "../../components/EditUser";
 import { useState } from "react";
+import { nanoid } from "nanoid";
+import accountsData from "../../data/accountsData.json"
 import "./index.scss";
 
 export default function User() {
@@ -26,21 +28,13 @@ export default function User() {
         )}
         {!editprofile && <EditUser />}
         <h2 className="sr-only">Accounts</h2>
-        <Account
-          titled={"Argent Bank Checking (x8349)"}
-          totalBalance={"$2,082.79"}
-          description={"Available Balance"}
-        />
-        <Account
-          titled={"Argent Bank Savings (x6712)"}
-          totalBalance={"$10,928.42"}
-          description={"Available Balance"}
-        />
-        <Account
-          titled={"Argent Bank Credit Card (x8349)"}
-          totalBalance={"$184.30"}
-          description={"Current Balance"}
-        />
+        {accountsData.accounts.map((accountData) => (
+          <Account 
+            key={nanoid(8)}
+            titled={accountData.title}
+            totalBalance={accountData.amount}
+            description={accountData.description}
+            />))}
       </main>
     </div>
   );

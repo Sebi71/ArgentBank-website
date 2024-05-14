@@ -34,16 +34,16 @@ export default function Account({ titled, totalBalance, description }) {
       {viewAccount && (
         <section className="view-account">
           <table className="container-table">
-              <tr className="titled-table">
-                <div className="titled-left">
+              <thead className="titled-table">
+                <tr className="titled-left">
                   <th>Date</th>
                   <th>Description</th>
-                </div>
-                <div className="titled-right">
+                </tr>
+                <tr className="titled-right">
                   <th>Amount</th>
                   <th>Balance</th>
-                </div>
-              </tr>
+                </tr>
+              </thead>
           </table>
           <Collapse />
           <Collapse />

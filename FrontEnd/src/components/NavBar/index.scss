@@ -7,23 +7,36 @@
     .link {
         display: flex;
 
-        .main-nav-item {
+        .nav-sign-in {
             text-decoration: none;
             font-weight: bold;
             color: #2c3e50;
-            display: flex;
-        
-            &:hover{
-                text-decoration: underline;
-            }
 
-            .fa-user-circle, .icon-sign-in {
+            .fa-user-circle {
                 margin-right: 0.3rem;
-                margin-left: 0.5rem;
             }
+        }
 
-            .name-user {
-                margin-right: 0.5rem;
+        .sign-out-container {
+            display: flex;
+       
+            .nav-sign-out {
+                text-decoration: none;
+                color: #2c3e50;
+                font-weight: bold;
+
+                &:hover{
+                    text-decoration: underline;
+                }
+
+                .fa-user-circle, .icon-sign-in {
+                    margin-right: 0.3rem;
+                    margin-left: 0.5rem;
+                }
+
+                .name-user {
+                    margin-right: 0.5rem;
+                }
             }
         }
     }
