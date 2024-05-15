@@ -8,10 +8,10 @@ import "./index.scss"
 
 export default function NavBar() {
   const dispatch = useDispatch()
-  // const token = useSelector((state) => state.signIn.token)
-  // const user = useSelector((state) => state.signIn.user)
-  // console.log(token, user);
-
+  const token = useSelector((state) => state.signIn.token)
+  const user = useSelector((state) => state.profile.firstName)
+  console.log(user);
+  
   const handleSignOut = () => {
     dispatch(signOut())
   }
@@ -28,28 +28,28 @@ export default function NavBar() {
       </NavLink>
       <div className="link">
         {/*afficher en fonction token récup */}
-        {/* {!token ? ( */}
-        <NavLink 
-          className="nav-sign-in" 
-          to="/login">
-            <i className="fa fa-user-circle"></i>
-            Sign In
-        </NavLink> 
-        {/* ) : ( */}
-        <div className="sign-out-container">
-          <NavLink className="nav-sign-out" to="/profile">
-            <i className="fa fa-user-circle"></i>
-            <span className="name-user">à remplacer</span>
-          </NavLink>
+        {!token && !user? (
           <NavLink 
-            className="nav-sign-out" 
-            to="/"
-            onClick={handleSignOut}>
-              <FaSignOutAlt className="icon-sign-in" />
-              Sign Out
+            className="nav-sign-in" 
+            to="/login">
+              <i className="fa fa-user-circle"></i>
+              Sign In
           </NavLink> 
+            ) : ( 
+          <div className="sign-out-container">
+            <NavLink className="nav-sign-out" to="/profile">
+              <i className="fa fa-user-circle"></i>
+              <span className="name-user">{user}</span>
+            </NavLink>
+            <NavLink 
+              className="nav-sign-out" 
+              to="/"
+              onClick={handleSignOut}>
+                <FaSignOutAlt className="icon-sign-in" />
+                Sign Out
+            </NavLink> 
          </div>
-        {/* )} */}
+        )}
       </div> 
     </nav>
   )
