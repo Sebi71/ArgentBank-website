@@ -16,16 +16,14 @@ export const signInSlice = createSlice({
             state.isLoggedIn = false
             state.error = false
             sessionStorage.clear()
-            localStorage.clear()
         }
     },
     extraReducers: (builder) => {
         builder
         .addCase(auth.fulfilled, (state, action) => {
-            state.token = action.payload.token
+            state.token = action.payload
             state.isLoggedIn = true
             state.error = null
-            sessionStorage.setItem("token", action.payload.token)
         })
         .addCase(auth.pending, (state) => {
             state.token = null
@@ -37,7 +35,7 @@ export const signInSlice = createSlice({
             state.isLoggedIn = false
             state.error = action.error.message
         })
-}
+    }
 })
 
 

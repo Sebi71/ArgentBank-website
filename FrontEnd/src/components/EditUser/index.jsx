@@ -1,12 +1,25 @@
 import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
 import "./index.scss";
+import { editProfile } from "../../services/callAPI";
+import { useState } from "react";
 
-export default function EditUser({close}) {
-    const profilSubmit = (e) => {
-        e.prevent.default()
-        e.stop.propagation()
-        
-      }
+export default function EditUser({ close, userName, firstName, lastName }) {
+  const dispatch = useDispatch();
+  const [editUser, setEditUser] = useState("")
+  // const newUserName = useSelector((state) => state.editProfile);
+  
+  const profilSubmit = (e) => {
+    e.preventDefault();
+  
+    
+    try {
+      dispatch(editProfile(editUser))
+    } catch (err) {
+      // setError("Email or Password is incorrect");
+    }
+
+  };
 
   return (
     <>
@@ -18,7 +31,8 @@ export default function EditUser({close}) {
             className="input-info"
             type="text"
             id="userName"
-            defaultValue={"à remplacer"}
+            defaultValue={userName}
+            onChange={(e) => {setEditUser(e.target.value)}}
           />
         </div>
         <div className="input-line">
@@ -27,7 +41,7 @@ export default function EditUser({close}) {
             className="input-info input-disable"
             type="text"
             id="firstName"
-            defaultValue={"à remplacer"}
+            defaultValue={firstName}
             readOnly
           />
         </div>
@@ -37,7 +51,7 @@ export default function EditUser({close}) {
             className="input-info input-disable"
             type="text"
             id="lastName"
-            defaultValue={"à ramplacer"}
+            defaultValue={lastName}
             readOnly
           />
         </div>
@@ -55,5 +69,8 @@ export default function EditUser({close}) {
 }
 
 EditUser.propTypes = {
-    close: PropTypes.func.isRequired,
+  close: PropTypes.func.isRequired,
+  userName: PropTypes.string.isRequired,
+  firstName: PropTypes.string.isRequired,
+  lastName: PropTypes.string.isRequired,
 };

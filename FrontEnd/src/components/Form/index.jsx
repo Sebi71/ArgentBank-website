@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { auth } from "../../services/callAPI";
 
 import "./index.scss";
@@ -8,38 +8,74 @@ import "./index.scss";
 export default function Form() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [remenber, setRemenber] = useState(false);
-  const [error, setError] = useState("")
+  const [remember, setRemember] = useState(false);
+  const [error, setError] = useState("");
 
-  const token = useSelector((state) => state.signIn.token)
-  if (remenber) {
-    localStorage.setItem("token", token);
-    //plutot un getitem qui va garder les info mail et mdp
-  }
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkedRemember = localStorage.getItem("remember");
+    const emailValue = localStorage.getItem("email");
+    const passwordValue = localStorage.getItem("password");
+
+    if (checkedRemember === "true" && emailValue && passwordValue) {
+      setEmail(emailValue);
+      setPassword(passwordValue);
+      setRemember(true);
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await dispatch(auth({ email, password }));
+      dispatch(auth({ email, password }));
+
+      if (remember) {
+        localStorage.setItem("email", email);
+        localStorage.setItem("password", password);
+        localStorage.setItem("remember", remember.toString());
+      } else {
+        localStorage.removeItem("email");
+        localStorage.removeItem("password");
+        localStorage.removeItem("remember");
+      }
+
       navigate("/profile");
     } catch (err) {
-      setError("Email or Password is incorrect")
+      setError("Email or Password is incorrect");
     }
+  };
+
+  const handleRememberChange = (e) => {
+    setRemember(e.target.checked);
+
+    if (!e.target.checked) {
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+      localStorage.removeItem("remember");
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   return (
     <>
-      <form  onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <div className="input-wrapper">
           <label htmlFor="username">Username</label>
           <input
             type="text"
             id="username"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmailChange}
             required
           />
         </div>
@@ -49,7 +85,7 @@ export default function Form() {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
             required
           />
           {error && <span className="error-message">{error}</span>}
@@ -58,8 +94,8 @@ export default function Form() {
           <input
             type="checkbox"
             id="remember-me"
-            checked={remenber}
-            onChange={(e) => setRemenber(e.target.checked)}
+            checked={remember}
+            onChange={handleRememberChange}
           />
           <label htmlFor="remember-me">Remember me</label>
         </div>
