@@ -12,6 +12,7 @@ export default function User() {
 
   const connect = useSelector((state) => state.signIn.isLoggedIn);
   const user = useSelector((state) => state.profile.user);
+  // const [userName, setUserName] = useState(user?.userName);
 
   const viewProfile = () => {
     setEditProfile(!editprofile);
@@ -19,7 +20,7 @@ export default function User() {
 
   if (!connect) {
     return <Navigate to="/login" />
-  }
+  } 
 
   return (
     <>

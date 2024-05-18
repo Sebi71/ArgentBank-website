@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch} from "react-redux";
-import { auth } from "../../services/callAPI";
+import { useDispatch, useSelector} from "react-redux";
+import { auth, profile } from "../../services/callAPI";
+import Loader from "../Loader";
 
 import "./index.scss";
 
@@ -9,7 +10,9 @@ export default function Form() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [remember, setRemember] = useState(false);
-  const [error, setError] = useState("");
+
+  const error = useSelector((state) => state.signIn.error);
+  const loading = useSelector((state) => state.signIn.loading);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,24 +32,21 @@ export default function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      dispatch(auth({ email, password }));
+    await dispatch(auth({ email, password }));
 
-      if (remember) {
-        localStorage.setItem("email", email);
-        localStorage.setItem("password", password);
-        localStorage.setItem("remember", remember.toString());
-      } else {
-        localStorage.removeItem("email");
-        localStorage.removeItem("password");
-        localStorage.removeItem("remember");
-      }
-
-      navigate("/profile");
-    } catch (err) {
-      setError("Email or Password is incorrect");
+    if (remember) {
+      localStorage.setItem("email", email);
+      localStorage.setItem("password", password);
+      localStorage.setItem("remember", remember.toString());
+    } else {
+      localStorage.removeItem("email");
+      localStorage.removeItem("password");
+      localStorage.removeItem("remember");
     }
-  };
+
+    navigate("/profile");
+    await dispatch(profile())
+};
 
   const handleRememberChange = (e) => {
     setRemember(e.target.checked);
@@ -68,6 +68,9 @@ export default function Form() {
 
   return (
     <>
+    {loading ? (
+      <Loader />
+    ) : (
       <form onSubmit={handleSubmit}>
         <div className="input-wrapper">
           <label htmlFor="username">Username</label>
@@ -101,6 +104,7 @@ export default function Form() {
         </div>
         <button className="sign-in-button">Sign In</button>
       </form>
+    )}
     </>
   );
 }

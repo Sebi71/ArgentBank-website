@@ -1,9 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { useEffect } from "react";
 import { FaSignOutAlt } from "react-icons/fa";
 import { signOut } from "../../redux/Slice/connectSlice";
-import { profile } from "../../services/callAPI";
 import logo from "../../assets/images/argentBankLogo.webp";
 import "./index.scss";
 
@@ -13,13 +11,7 @@ export default function NavBar() {
   const token = useSelector((state) => state.signIn.token);
   const user = useSelector((state) => state.profile.user);
 
-  useEffect(() => {
-    if (token) {
-      dispatch(profile());
-    }
-  }, [dispatch, token]);
-
-  const handleSignOut = () => {
+   const handleSignOut = () => {
     dispatch(signOut());
   };
 
@@ -34,7 +26,6 @@ export default function NavBar() {
         <h1 className="sr-only">Argent Bank</h1>
       </NavLink>
       <div className="link">
-        {/*afficher en fonction token récup */}
         {!token ? (
           <NavLink className="nav-sign-in" to="/login">
             <i className="fa fa-user-circle"></i>

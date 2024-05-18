@@ -1,0 +1,35 @@
+@import "../../assets/styles/utils/keyframes.scss";
+
+.container-loader {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: box 7s infinite linear;
+
+    .ring {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border: 5px solid #429cc0;
+        border-radius: 50%;
+        border-bottom-color: transparent;
+        border-left-width: 0;
+    }
+
+    .ring1 {
+        animation: spin1 700ms infinite linear;
+    }
+
+    .ring2 {
+        animation: spin2 700ms infinite linear;
+    }
+
+    .ring3 {
+        animation: spin3 700ms infinite linear;
+    }
+}

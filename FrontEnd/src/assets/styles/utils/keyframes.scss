@@ -1,0 +1,35 @@
+@keyframes spin1 {
+    0% {
+        transform: translate(-50%, -50%) rotateZ(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotateZ(360deg);
+    }
+}
+
+@keyframes spin2 {
+    0% {
+        transform: translate(-50%, -50%) rotateY(-85deg) rotateZ(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotateY(-85deg) rotateZ(360deg);
+    }
+}
+
+@keyframes spin3 {
+    0% {
+        transform: translate(-50%, -50%) rotateX(-95deg) rotateZ(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotateX(-95deg) rotateZ(360deg);
+    }
+}
+
+@keyframes box {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}

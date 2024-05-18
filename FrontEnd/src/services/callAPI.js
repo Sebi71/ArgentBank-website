@@ -12,8 +12,8 @@ export const auth = createAsyncThunk("user/auth", async ({ email, password }) =>
       // console.log("res : ",token);
       return token;
     } catch (err) {
+      throw new Error(err);
       // console.log("ERROR", err)
-      // alert("ERROR",err);
     }
   }
 );
@@ -22,8 +22,8 @@ export const auth = createAsyncThunk("user/auth", async ({ email, password }) =>
 export const profile = createAsyncThunk("user/profile", async () => {
   try {
     const token = sessionStorage.getItem("token");
-    const res = await axios.post(
-      `http://localhost:3001/api/v1/user/profile`,
+    // console.log("token", token);
+    const res = await axios.post(`http://localhost:3001/api/v1/user/profile`,
       null,
       {
         headers: {
@@ -35,7 +35,7 @@ export const profile = createAsyncThunk("user/profile", async () => {
     // console.log("res : ", userData);
     return userData;
   } catch (err) {
-    // alert("ERROR", err);
+    throw new Error(err);
     // console.log("ERROR", err);
   }
 });
@@ -45,8 +45,7 @@ export const editProfile = createAsyncThunk("user/editProfile", async ({newUserN
   try {
     const token = sessionStorage.getItem("token");
     console.log("put", token);
-    const res = await axios.put(
-      `http://localhost:3001/api/v1/user/profile`,
+    const res = await axios.put(`http://localhost:3001/api/v1/user/profile`,
       {userName: newUserName},
       {
         headers: {
@@ -58,7 +57,7 @@ export const editProfile = createAsyncThunk("user/editProfile", async ({newUserN
     console.log("res : ", userData);
     return userData;
   } catch (err) {
-    // alert("ERROR", err);
-    console.log("ERROR", err);
+    throw new Error(err);
+    // console.log("ERROR", err);
   }
 });
