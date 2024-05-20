@@ -1,27 +1,25 @@
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
-import { editProfile } from "../../services/callAPI";
+import { editProfile, profile } from "../../services/callAPI";
 import { useState } from "react";
 import Loader from "../Loader";
 import "./index.scss";
 
 export default function EditUser({ close, userName, firstName, lastName }) {
-  const [editUser, setEditUser] = useState("")
+  const [editUser, setEditUser] = useState(userName)
 
-  // const newUserName = useSelector((state) => state.editProfile.newUserName);
   const error = useSelector((state) => state.editProfile.error);
   const loading = useSelector((state) => state.editProfile.loading);
-  // console.log("newUserName : ", error);
-  
   
   const dispatch = useDispatch();
-
+  
   const profilSubmit = async (e) => {
     e.preventDefault();
-       
-     const success =await dispatch(editProfile({newUserName: editUser}))
-
+    
+    const success =await dispatch(editProfile({newUserName: editUser}))
+    
     if(editProfile.fulfilled.match(success)){
+      dispatch(profile())
       close()
     } 
   };
@@ -40,7 +38,7 @@ export default function EditUser({ close, userName, firstName, lastName }) {
                 className="input-info"
                 type="text"
                 id="userName"
-                defaultValue={userName}
+                value={editUser}
                 required
                 onChange={(e) => {setEditUser(e.target.value)}}
                 />
@@ -67,11 +65,16 @@ export default function EditUser({ close, userName, firstName, lastName }) {
             </div>
                 {error && <span className="error-message">Service unavailable, please try again later</span>}
             <div className="form-btn">
-              <button type="submit" className="edit-btn">
-                Save
+              <button 
+                type="submit" 
+                className="edit-btn">
+                  Save
               </button>
-              <button type="cancel" className="edit-btn" onClick={close}>
-                Cancel
+              <button 
+                type="cancel" 
+                className="edit-btn" 
+                onClick={close}>
+                  Cancel
               </button>
             </div>
           </form>

@@ -12,7 +12,6 @@ export default function User() {
 
   const connect = useSelector((state) => state.signIn.isLoggedIn);
   const user = useSelector((state) => state.profile.user);
-  // const [userName, setUserName] = useState(user?.userName);
 
   const viewProfile = () => {
     setEditProfile(!editprofile);
@@ -41,9 +40,9 @@ export default function User() {
             {editprofile && 
             <EditUser 
               close={viewProfile}
-              userName={user?.userName}
-              firstName={user?.firstName}
-              lastName={user?.lastName} />}
+              userName={user?.userName || ""}
+              firstName={user?.firstName || ""}
+              lastName={user?.lastName || ""} />}
             <h2 className="sr-only">Accounts</h2>
             {accountsData.accounts.map((accountData) => (
               <Account

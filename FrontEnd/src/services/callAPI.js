@@ -44,7 +44,7 @@ export const profile = createAsyncThunk("user/profile", async () => {
 export const editProfile = createAsyncThunk("user/editProfile", async ({newUserName}) => {
   try {
     const token = sessionStorage.getItem("token");
-    console.log("put", token);
+    // console.log("put", token);
     const res = await axios.put(`http://localhost:3001/api/v1/user/profile`,
       {userName: newUserName},
       {
@@ -54,7 +54,7 @@ export const editProfile = createAsyncThunk("user/editProfile", async ({newUserN
       }
     );
     const userData = res.data.body;
-    console.log("res : ", userData);
+    // console.log("res : ", userData);
     return userData;
   } catch (err) {
     throw new Error(err);
