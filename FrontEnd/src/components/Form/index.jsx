@@ -46,7 +46,7 @@ export default function Form() {
 
     navigate("/profile");
     await dispatch(profile())
-};
+  };
 
   const handleRememberChange = (e) => {
     setRemember(e.target.checked);
